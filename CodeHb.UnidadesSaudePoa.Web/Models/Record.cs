@@ -24,6 +24,7 @@ namespace CodeHb.UnidadesSaudePoa.Web.Models
         public string Telefone { get; set; }
 
         [Display(Name = "Endereço")]
+        [JsonProperty(PropertyName = "Endereзo")]
         public string Endereco { get; set; }
 
         public double Longitude { get; set; }

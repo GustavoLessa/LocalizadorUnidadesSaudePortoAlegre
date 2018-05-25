@@ -172,6 +172,7 @@
     </Compile>
     <Compile Include="Models\Field.cs" />
     <Compile Include="Models\Links.cs" />
+    <Compile Include="Models\Pin.cs" />
     <Compile Include="Models\Record.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\UnidadeSaude.cs" />
