@@ -1,0 +1,97 @@
+﻿@model CodeHb.UnidadesSaudePoa.Web.Models.UnidadeSaude
+
+@{
+    ViewBag.Title = "Mapa";
+}
+
+<h2>Mapa das Unidades de Saúde</h2>
+<div id="map_canvas" style="width: 95%; height: 432px"></div>
+
+<script type="text/javascript" language="javascript">
+
+     window.onload = function () {
+         chamaMapa();
+
+        
+         //FazMarcacao("-30.015932", "-51.158867");
+
+         //FazMarcacao("-30.029413", "-51.214928");
+
+         //FazMarcacao("-30.029761", "-51.220184");
+
+         chamaMarcacaoComTextoInfo("-30.029761", "-51.220184", "teste", "324234324", "asdsad");
+         chamaMarcacaoComTextoInfo("-30.029413", "-51.214928", "sdfdsfsdf", "324234324", "asdsad");
+        
+        
+     };
+
+
+     //variavel cria para que seja criado o mapa Google Maps
+     var map = null;
+     //Essa e a funcao que criara o mapa GoogleMaps
+     function chamaMapa() {
+         //aqui vamos definir as coordenadas de latitude e longitude no qual
+         //sera exibido o nosso mapa
+         var latlng = new google.maps.LatLng(-30.0277, -51.2287); //DEFINE A LOCALIZAÇÃO EXATA DO MAPA
+         //aqui vamos configurar o mapa, como o zoom, o centro do mapa, etc
+         var myOptions = {
+             zoom: 15,//utilizaremos o zoom 15
+             center: latlng,//aqui a nossa variavel constando latitude e
+             //longitude ja declarada acima
+             mapTypeId: google.maps.MapTypeId.ROADMAP
+         };
+         //criando o mapa dentro da div com o id="map_canvas" que ja criamos
+         map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+         //DEFINE AS COORDENADAS do ponto exato - CENTRALIZAÇÃO DO MAPA
+         //map.setCenter(new google.maps.LatLng(-30.0277, -51.2287));
+     }
+     function abreLink() {
+         window.open('http://www.google.com.br');
+     }
+
+
+     //function FazMarcacao(lat, long) {//-30.01008,-51.159222
+         
+     //    var latlong = lat + "," + long;//colocando na conficuracao necessaria (lat,long)
+     //    var myLatLgn = new google.maps.LatLng(-30.0277, -51.2287);
+     //    //criando variavel tipo google.maps.LatLng e 
+     //    //passando como parametro a latitude e longitude
+     //    //na configuracao: latitude,longitude.
+
+     //    //aproximando o mapa, aumentando o zoom
+     //    map.setZoom(17);
+
+     //    //fazendo  a marcacao, usando o latitude e longitude da variavel criada acima
+     //    var marker = new google.maps.Marker({ position: myLatLgn, map: map });
+     //    //aqui a variavel e o comando que faz a marcação
+
+     //    map.setCenter(myLatLgn);//leva o mapa para a posicao da marcacao
+     //} 
+
+     function chamaMarcacaoComTextoInfo(lat, long, nome, telefone, endereco)
+     {  
+        var latlong = lat + "," + long;
+        var myLatLgn = new google.maps.LatLng(-30.0277, -51.2287);         
+        map.setZoom(17);
+        var marker = new google.maps.Marker({ position: myLatLgn, map: map });
+        map.setCenter(latlong);
+        var infowindow = new google.maps.InfoWindow(), marker;
+        
+        google.maps.event.addListener(marker, 'click', (function (marker, i)
+        {
+            return function ()
+            {     
+                var iwContent = '<div id="iw_container">' +
+                                    '<div class="iw_title">' + nome + '</div>' +
+                                    '<div class="iw_content">' + telefone +
+                                    '<br />' + endereco +
+                                    '</div></div>';
+
+                infowindow.setContent(iwContent);
+                infowindow.open(map, marker);
+            }
+        })(marker))
+    }
+    
+
+</script>
